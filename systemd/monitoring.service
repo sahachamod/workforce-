@@ -1,0 +1,16 @@
+[Unit]
+Description=Monitoring Service
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+WorkingDirectory=/var/www/backend/monitoring-service
+Environment="PATH=/var/www/backend/monitoring-service/venv/bin"
+ExecStart=/var/www/backend/monitoring-service/venv/bin/uvicorn main:app --host 0.0.0.0 --port 8006 --workers 2
+Restart=always
+StandardOutput=append:/var/log/services/monitoring-service.log
+StandardError=append:/var/log/services/monitoring-service.log
+
+[Install]
+WantedBy=multi-user.target
